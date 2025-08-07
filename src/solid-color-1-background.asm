@@ -9,8 +9,6 @@
 ; has been cleared to $00, making the tilemap draw tile #0 everywhere
 ; and tile #0's pattern consists entirely of Color ID #0.
 ;
-; Even though only Color ID #0 is used, all four Color IDs are mapped to Color 1.
-;
 ; Expected result:
 ; - A solid screen filled with the second lightest shade (Color 1).
 ;
@@ -25,8 +23,8 @@ SECTION "Header", ROM0[$100]
 	ds $150 - @, 0 ; Make room for the header
 
 EntryPoint:
-	; Set all 4 colors slots to %01, which is Color 1
-	ld a, %01010101
+	; Set Color ID #0 to %01 (Color 1) and other IDs to %11 (Color 3)
+	ld a, %11111101
 	ld [rBGP], a
 
 	; Turn the LCD and Background on
